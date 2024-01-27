@@ -13,4 +13,3 @@ print('Is directory exists:', file.dir.is_exists)
 
 print('Base filename:', file.base_name)
 print('Filename extension:', file.extension)
-

@@ -5,6 +5,9 @@ import platform
 import subprocess
 
 
+# TODO: попробовать pathlib
+
+
 def get_linux_path(path: str):
     """
     Преобразование пути к формату Linux
