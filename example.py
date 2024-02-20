@@ -1,5 +1,6 @@
 from cfs import Dir, File
 
+
 file = File('/home/kmg/PycharmProjects/Defenders/storage/defenders.db')
 print(file)
 print(file.path.absolute)
@@ -8,6 +9,7 @@ print(file.is_exists)
 print(file.is_parents_exists)
 print(file.parent)
 print(file.sections)
+
 
 dir = Dir('/home/one/two/three')
 print(dir)
