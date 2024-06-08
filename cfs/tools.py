@@ -4,7 +4,7 @@ import platform
 
 def check_path(path: str) -> None:
     """
-    Проверка path на принадлежность к классу str
+    Проверка значения параметра path на принадлежность к классу str
     """
     if not isinstance(path, str):
         raise ValueError('path <{}> must be string'.format(path))
@@ -12,7 +12,7 @@ def check_path(path: str) -> None:
 
 def convert_path(path: str) -> str:
     """
-    Приведение path к формату операционной системы
+    Приведение значения path к формату операционной системы
     """
     if platform.system() == 'Windows' and '/' in path:
         # Windows
@@ -36,13 +36,17 @@ def file_size(path: str):
     return os.path.getsize(path)
 
 
+def dir_size(path: str):
+    size = file_size(path)
+    content = list_dir(path)
+    for item in content:
+        size += get_size(item)
+    return size
+
+
 def get_size(path: str):
-    size = 0
     if os.path.isdir(path):
-        size += file_size(path)
-        content = list_dir(path)
-        for item in content:
-            size += get_size(item)
+        size = dir_size(path)
     else:
-        size += file_size(path)
+        size = file_size(path)
     return size

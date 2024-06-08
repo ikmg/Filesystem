@@ -1,5 +1,6 @@
 import os
 
+from .file import File
 from .object import Object
 from .tools import check_path, list_dir, join_path
 
@@ -39,8 +40,30 @@ class Dir(Object):
             return list_dir(self.path.absolute)
         return None
 
+    def child_dirs(self):
+        result = []
+        if not self.is_exists:
+            return result
+
+        for child_path in self.children():
+            if os.path.isdir(child_path):
+                result.append(Dir(child_path))
+        return result
+
+    def child_files(self):
+        result = []
+        if not self.is_exists:
+            return result
+
+        for child_path in self.children():
+            if os.path.isfile(child_path):
+                result.append(File(child_path))
+        return result
+
     def copy(self, destination: str):
+        # TODO
         pass
 
     def remove(self):
+        # TODO
         pass
