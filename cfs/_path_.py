@@ -42,7 +42,13 @@ class Path:
         check_on_str(path)  # проверка значения
         self.absolute = os.path.abspath(convert_path(path))  # абсолютный путь
         self.relative = os.path.relpath(self.absolute)  # относительный путь
-        self.is_exists = os.path.exists(self.absolute)  # существование пути в операционной системе
+
+    def __repr__(self):
+        return '<{}>'.format(self.absolute)
+
+    @property
+    def is_exists(self):
+        return os.path.exists(self.absolute)
 
     def parent(self):
         """
@@ -54,10 +60,6 @@ class Path:
         else:
             return Path(parent)
 
-    def __repr__(self):
-        return '<{}>'.format(self.absolute)
-
-    @property
     def parts(self):
         """
         Составные части пути

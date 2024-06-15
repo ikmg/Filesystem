@@ -2,8 +2,9 @@ import os
 import shutil
 
 from ._path_ import check_on_str
-from ._object_ import ObjectOS
+from ._name_ import DirName
 from ._size_ import Size
+from ._object_ import ObjectOS
 from .file import File
 
 
@@ -14,6 +15,7 @@ class Directory(ObjectOS):
 
     def __init__(self, path: str):
         super().__init__(path)
+        self.name = DirName(self.path.absolute)
         if self.path.is_exists and not os.path.isdir(self.path.absolute):
             raise ValueError('path <{}> is not a directory'.format(self.path.absolute))
 
@@ -28,6 +30,8 @@ class Directory(ObjectOS):
         """
         Размер директории в байтах.
         """
+        if not self.path.is_exists:
+            return Size(0)
         size = os.path.getsize(self.path.absolute)  # сама директория тоже весит
         children = self.child_list()  # список дочерних элементов директории
         for child_path in children:  # рекурсивный перебор дочерних элементов

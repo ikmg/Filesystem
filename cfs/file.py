@@ -2,9 +2,10 @@ import hashlib
 import os
 import shutil
 
-from ._object_ import ObjectOS
 from ._path_ import check_on_str
+from ._name_ import FileName
 from ._size_ import Size
+from ._object_ import ObjectOS
 
 
 class File(ObjectOS):
@@ -14,6 +15,7 @@ class File(ObjectOS):
 
     def __init__(self, path: str):
         super().__init__(path)
+        self.name = FileName(self.path.absolute)
         if self.path.is_exists and not os.path.isfile(self.path.absolute):
             raise ValueError('path <{}> is not a file'.format(self.path.absolute))
 
@@ -28,6 +30,8 @@ class File(ObjectOS):
         """
         Размер файла в байтах
         """
+        if not self.path.is_exists:
+            return Size(0)
         size = os.path.getsize(self.path.absolute)
         return Size(size)
 

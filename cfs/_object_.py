@@ -3,7 +3,6 @@ import subprocess
 from abc import abstractmethod, ABC
 
 from ._path_ import Path
-from ._name_ import Name
 from ._size_ import Size
 
 
@@ -11,7 +10,7 @@ class ObjectOS(ABC):
 
     def __init__(self, path: str):
         self.path = Path(path)
-        self.name = Name(self.path.absolute)
+        self.name = None
         self.size = self.get_size()
 
     def __repr__(self):
