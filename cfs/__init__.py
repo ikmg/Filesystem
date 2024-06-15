@@ -1,2 +1,2 @@
-from .dir import Dir
+from .directory import Directory
 from .file import File
